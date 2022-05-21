@@ -1,10 +1,12 @@
 package com.wizeline.academy.animations.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.wizeline.academy.animations.databinding.DetailFragmentBinding
@@ -35,9 +37,17 @@ class DetailFragment : Fragment() {
     }
 
     private fun goToMoreDetails() {
+
+        val extras = FragmentNavigatorExtras(
+            binding.tvTitle to "detailTitle",
+            binding.ivImageDetail to "detailImage",
+            binding.tvSubtitle to "detailDescription"
+        )
+
         val directions =
             DetailFragmentDirections.toMoreDetailsFragment(args.imageId, viewModel.contentIndex)
-        findNavController().navigate(directions)
+        findNavController().navigate(directions = directions, navigatorExtras = extras)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
